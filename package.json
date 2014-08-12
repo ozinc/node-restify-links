@@ -1,0 +1,28 @@
+{
+  "name": "node-restify-links",
+  "version": "1.0.0",
+  "description": "Middleware that adds the res.links function from Express to Restify responses objects.",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ozinc/node-restify-links.git"
+  },
+  "keywords": [
+    "restify",
+    "header",
+    "middleware",
+    "links"
+  ],
+  "contributors": [
+    "Jónatan Nilsson <jonatan@oz.com>",
+    "Sveinn Fannar <sveinn@oz.com"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ozinc/node-restify-links/issues"
+  },
+  "homepage": "https://github.com/ozinc/node-restify-links"
+}
