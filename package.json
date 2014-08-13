@@ -2,7 +2,7 @@
   "name": "node-restify-links",
   "version": "1.0.0",
   "description": "Middleware that adds the res.links function from Express to Restify responses objects.",
-  "main": "index.js",
+  "main": "lib/links.js",
   "scripts": {
     "test": "gulp"
   },
@@ -20,6 +20,18 @@
     "Jónatan Nilsson <jonatan@oz.com>",
     "Sveinn Fannar <sveinn@oz.com"
   ],
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "gulp": "~3.7.0",
+    "gulp-clean": "~0.3.0",
+    "gulp-coverage": "~0.1.24",
+    "gulp-jshint": "~1.6.3",
+    "gulp-mocha": "~0.4.1",
+    "jshint-stylish": "~0.2.0",
+    "mocha": "~1.13.0",
+    "run-sequence": "~0.3.6",
+    "sinon": "^1.10.3"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ozinc/node-restify-links/issues"

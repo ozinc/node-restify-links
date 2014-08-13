@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - '0.10'
+  - '0.11'
+env:
+  - NODE_ENV=test
+before_script:
+  - npm install -g gulp
+cache:
+  directories:
+    - node_modules
