@@ -21,7 +21,7 @@
     "Sveinn Fannar <sveinn@oz.com"
   ],
   "devDependencies": {
-    "chai": "^1.9.1",
+    "chai": "~1.9.1",
     "gulp": "~3.7.0",
     "gulp-clean": "~0.3.0",
     "gulp-coverage": "~0.1.24",
@@ -30,7 +30,7 @@
     "jshint-stylish": "~0.2.0",
     "mocha": "~1.13.0",
     "run-sequence": "~0.3.6",
-    "sinon": "^1.10.3"
+    "sinon": "~1.10.3"
   },
   "license": "MIT",
   "bugs": {
