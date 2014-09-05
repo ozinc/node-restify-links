@@ -1,5 +1,5 @@
 {
-  "name": "node-restify-links",
+  "name": "restify-links",
   "version": "1.0.0",
   "description": "Middleware that adds the res.links function from Express to Restify responses objects.",
   "main": "lib/links.js",
