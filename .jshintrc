@@ -15,7 +15,7 @@
   "maxdepth": 4,
   "boss": true,
   "eqnull": true,
-  "globalstrict": true,
+  "globalstrict": false,
   "smarttabs": true,
   "browser": true,
   "node": true,
