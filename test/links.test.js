@@ -3,11 +3,33 @@
 var assert = require('chai').assert;
 var sinon = require('sinon');
 
-describe('links#links', function() {
+function checkGenerator(links, prev, input, expected) {
+  var res;
+
+  res = {
+    getHeader: sinon.stub().returns(prev),
+    setHeader: sinon.stub()
+  };
+
+  return function (done) {
+    links(null, res, function () {
+      var args;
+
+      res.links(input);
+      args = res.setHeader.getCall(0).args;
+      assert.equal(args[0], 'Link');
+      assert.equal(args[1], expected);
+      done();
+    });
+  };
+}
+
+
+describe('links#links', function () {
   //Create our middleware
   var links = require('./../lib/links')();
 
-  it('should add links method to res object', function(done) {
+  it('adds links method to res object', function (done) {
     var res = {};
 
     assert.isNotFunction(!res.links);
@@ -17,46 +39,41 @@ describe('links#links', function() {
     });
   });
 
-  it('links method should format header links correctly', function(done) {
-    var res = {
-      getHeader: sinon.stub().returns(null),
-      setHeader: sinon.stub()
-    };
+  it('formats header links correctly', checkGenerator(links, null, {
+    test: 'http://jonatan.nilsson.is'
+  }, '<http://jonatan.nilsson.is>; rel="test"'));
 
-    links(null, res, function() {
-      var url = 'http://jonatan.nilsson.is';
+  it('preserves existing links', checkGenerator(links, 'previous', {
+    test: 'http://jonatan.nilsson.is'
+  }, 'previous, <http://jonatan.nilsson.is>; rel="test"'));
 
-      res.links({
-        test: url
-      });
+  it('works with an array', checkGenerator(links, 'something', {
+    up: [
+      'aaaa',
+      'bbbb'
+    ]
+  }, 'something, <aaaa>; rel="up", <bbbb>; rel="up"'));
 
-      var args = res.setHeader.getCall(0).args;
-      assert.equal(args[0], 'Link');
-      assert.equal(args[1], '<' + url + '>; rel="test"');
+  it('converts objects', checkGenerator(links, 'flowers', {
+    obj: {
+      href: 'required',
+      rel: 'IGNORED!',
+      something: 'blah'
+    }
+  }, 'flowers, <required>; rel="obj"; something="blah"'));
 
-      done();
-    });
-  });
-
-  it('existing links should be kept and not overridden', function(done) {
-    var prev = 'asdf';
-    var res = {
-      getHeader: sinon.stub().returns(prev),
-      setHeader: sinon.stub()
-    };
-
-    links(null, res, function() {
-      var url = 'http://jonatan.nilsson.is';
-
-      res.links({
-        test: url
-      });
-
-      var args = res.setHeader.getCall(0).args;
-      assert.equal(args[0], 'Link');
-      assert.equal(args[1], prev + ', <' + url + '>; rel="test"');
-
-      done();
-    });
-  });
+  it('converts mixed input', checkGenerator(links, null, {
+    one: 'one',
+    two: [
+      'two-1',
+      {
+        href: 'two-2',
+        good: 'yes'
+      }
+    ],
+    three: {
+      href: 'three',
+      profile: '/#three'
+    }
+  }, '<one>; rel="one", <two-1>; rel="two", <two-2>; rel="two"; good="yes", <three>; rel="three"; profile="/#three"'));
 });
